@@ -13,11 +13,8 @@ const Header = () => {
         <Link className='option f4 fw6 purple no-underline underline-hover' to='/shop'>
           SHOP
         </Link>
-        <Link className='option f4 fw6 purple no-underline underline-hover' to='/shop'>
-          КОНТАКТЫ
-        </Link>
-        <Link className='option f4 fw6 purple no-underline underline-hover' to='/shop'>
-          About us 
+        <Link className='option f4 fw6 purple no-underline underline-hover' to='/signin'>
+          SIGN IN
         </Link>
       </div>
     </header>
