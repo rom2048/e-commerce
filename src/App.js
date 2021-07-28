@@ -1,23 +1,14 @@
 import HomePage from './pages/HomePage/HomePage';
+import ShopPage from './pages/Shop/Shop';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-
-const HatsPage = (props) => {
-  console.log(props);
-  return(
-    <div>
-      <button onClick={() => props.history.push('/hats')}>Hats here *</button>
-      <h1>Hats Page</h1>
-    </div>
-  );
-}
 
 function App() {
   return (
     <div >
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route  path='/hats' component={HatsPage} />
+        <Route  path='/shop' component={ShopPage} />
       </Switch>
     </div>
   );
