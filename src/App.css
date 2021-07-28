@@ -2,3 +2,7 @@ body {
 	font-family: 'Domine';
 	padding: 20px 60px;
 }
+
+a {
+	text-decoration: none;
+}

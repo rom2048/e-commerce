@@ -12,13 +12,13 @@ body {
   font-family: 'Domine';
   font-style: normal;
   font-weight: 400;
-  src: url('./fonts/domine-v11-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('./assets/fonts/domine-v11-latin-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
-       url('./fonts/domine-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('./fonts/domine-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('./fonts/domine-v11-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('./fonts/domine-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('./fonts/domine-v11-latin-regular.svg#Domine') format('svg'); /* Legacy iOS */
+       url('./assets/fonts/domine-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./assets/fonts/domine-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./assets/fonts/domine-v11-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('./assets/fonts/domine-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('./assets/fonts/domine-v11-latin-regular.svg#Domine') format('svg'); /* Legacy iOS */
 }
 
 code {
