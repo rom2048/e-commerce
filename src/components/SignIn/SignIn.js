@@ -26,14 +26,14 @@ class SignIn extends React.Component {
     return (
       <div className='sign-in'>
         <form onSubmit={this.handleSubmit}>
-          <fieldset id="sign-in" class="ba b--transparent ph0 mh0">
-            <legend class="f4 fw6 ph0 mh0">Sign In</legend>
+          <fieldset id="sign-in" className="ba b--transparent ph0 mh0">
+            <legend className="f4 fw6 ph0 mh0">Sign In</legend>
             <FormInput
               name='email'
               type='email'
               handleChange={this.handleChange}
               value={this.state.email}
-              label='email'
+              label='Email'
               required
             />
             <FormInput
@@ -41,7 +41,7 @@ class SignIn extends React.Component {
               type='password'
               handleChange={this.handleChange}
               value={this.state.password}
-              label='password'
+              label='Password'
               required
             />
             <div className='buttons'>

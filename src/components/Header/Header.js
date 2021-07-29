@@ -12,16 +12,16 @@ const Header = ({ currentUser }) => {
         <Logo className='logo' />
       </Link>
       <div className='options'>
-        <Link className='option f4 fw6 black no-underline underline-hover pointer' to='/shop'>
+        <Link className='option black  pointer' to='/shop'>
           Shop
         </Link>
-        <Link className='option f4 fw6 black no-underline underline-hover pointer' to='/signin'>
+        <Link className='option black pointer' to='/signin'>
           Contact
         </Link>
         {
           currentUser 
-            ? <div className='option' onClick={() => auth.signOut()}>Sign Out</div> 
-            : <Link className='option' to='/signin'>Sign in</Link>
+            ? <div className='option black pointer' onClick={() => auth.signOut()}>Sign Out</div> 
+            : <Link className='option black pointer' to='/signin'>Sign in</Link>
         }
       </div>
     </header>
