@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import CartIcon from '../CartIcon/CartIcon';
+import CartDropdown from '../CartDropdown/CartDropdown';
 
 import { connect } from 'react-redux';
 import { auth } from '../../firebase/firebase';
 import './Header.scss';
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <header className='header'>
       <Link className='logo-container' to='/'>
@@ -24,14 +26,17 @@ const Header = ({ currentUser }) => {
             ? <div className='option black pointer' onClick={() => auth.signOut()}>Sign Out</div> 
             : <Link className='option black pointer' to='/signin'>Sign in</Link>
         }
+        <CartIcon />
       </div>
+      { hidden ? null : <CartDropdown /> }
     </header>
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => { //advance destruction
   return {
-    currentUser: state.user.currentUser
+    currentUser,
+    hidden
   }
 }
 
