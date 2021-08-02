@@ -1,4 +1,5 @@
 import { TOGGLE_CART_HIDDEN, ADD_ITEM } from '../constants.js';
+import { addClothToCart } from './cartUtils.js';
 
 const initialStateCart = {
   hidden: true,
@@ -10,7 +11,7 @@ const cartReducer = (state=initialStateCart, action={}) => {
     case TOGGLE_CART_HIDDEN:
       return Object.assign({}, state, {hidden: !state.hidden});
     case ADD_ITEM:
-      return Object.assign({}, state, {cartItems: [...state.cartItems, action.payload]});
+      return Object.assign({}, state, {cartItems: addClothToCart(state.cartItems, action.payload)});
     default:
       return state;
   }
