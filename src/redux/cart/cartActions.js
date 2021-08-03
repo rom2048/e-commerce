@@ -1,6 +1,6 @@
 import { TOGGLE_CART_HIDDEN, ADD_ITEM } from '../constants.js';
 
-export const toogleCartHidden = () => ({
+export const toggleCartHidden = () => ({
   type: TOGGLE_CART_HIDDEN
 });
 
