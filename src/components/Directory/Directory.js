@@ -1,66 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MenuItem from '../MenuItem/MenuItem';
-
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectDirectorySections } from '../../redux/directory/directorySelectors';
 import './Directory.scss';
 
-class Directory extends Component {
-  constructor() {
-    super();
-    this.state = {
-      sections: [
-        {
-          title: 'hats',
-          imageUrl: 'https://i.pinimg.com/originals/4b/9a/ac/4b9aac6da2819e8c97154da6134c0899.jpg',
-          id: 1,
-          linkUrl: 'hats'
-        },
-        {
-          title: 'jackets',
-          imageUrl: 'https://i.ebayimg.com/00/s/NDQ0WDUwMA==/z/1Y0AAOSwhYNeR87I/$_57.JPG?set_id=8800005007',
-          id: 2,
-          linkUrl: ''
-        },
-        {
-          title: 'sneakers',
-          imageUrl: 'https://sporteluxe-wp.s3-ap-southeast-2.amazonaws.com/wp-content/uploads/2014/06/Converse-post-2.jpg',
-          id: 3,
-          linkUrl: ''
-        },
-        {
-          title: 'mans',
-          imageUrl: 'https://ups.aopcdn.com/s23737/goods/18235/0u3d6ee632fa0a485cbe520af2e8647ed5.jpg',
-          id: 4,
-          size: 'large',
-          linkUrl: ''
-        },
-        {
-          title: 'women',
-          imageUrl: 'http://g01.a.alicdn.com/kf/HL1deH.FxBjXXagOFbXz/202312194/HL1deH.FxBjXXagOFbXz.jpg?size=55458&amp;height=700&amp;width=700&amp;hash=25ca3b423d5cc97cbe16e52525b6d3bc',
-          id: 5,
-          size: 'large',
-          linkUrl: ''
-        }
-      ]
-    }
-  }
-
-  render() {
-    return (
-      <div className='directory-menu'>
-        {
-          this.state.sections.map(section => {
-            return <MenuItem
-             key={section.id}
-             title={section.title}
-             imageUrl={section.imageUrl}
-             size={section.size}
-             linkUrl={section.linkUrl}
-            />
-          })
-        }
-      </div>
-    );
-  }
+const Directory = ({ sections }) => {
+  return (
+    <div className='directory-menu'>
+      {
+        sections.map(section => {
+          return <MenuItem
+           key={section.id}
+           title={section.title}
+           imageUrl={section.imageUrl}
+           size={section.size}
+           linkUrl={section.linkUrl}
+          />
+        })
+      }
+    </div>
+  );
 }
 
-export default Directory;
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections
+})
+
+export default connect(mapStateToProps)(Directory);
