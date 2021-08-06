@@ -25,6 +25,33 @@ export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
   return await batch.commit();
 }
 
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowercase()),
+      id: doc.id,
+      title,
+      items 
+    };
+  });
+  /* We passin in initial object (empty object (row52)). The initial object goes into the first new collection.
+    And it sets the first value equal to the title but in lower case.
+    So the first value is going to be hats. So it will be an empty object with a property of hats
+    that's equal to the hats collection. And then it returns that object.
+    And it goes into the second object. If the second object is say jackets, then it's going to set
+    a new property called jackets and then equal the jackets collection.
+    So now you have an object thats has a hats property qual to the hats collection and a jacket's property
+    equal to the jackets collection and then so on and so forth until we end up with an object,
+    where the titles of all five of the collections objects are the keys and then they equal their respective
+    collection object.  */
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowercase()] = collection;
+    return accumulator;
+  }, {})
+}
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
