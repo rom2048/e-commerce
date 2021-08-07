@@ -30,7 +30,7 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     const { title, items } = doc.data();
 
     return {
-      routeName: encodeURI(title.toLowercase()),
+      routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
       items 
@@ -47,7 +47,7 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     where the titles of all five of the collections objects are the keys and then they equal their respective
     collection object.  */
   return transformedCollection.reduce((accumulator, collection) => {
-    accumulator[collection.title.toLowercase()] = collection;
+    accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {})
 }
