@@ -25,11 +25,12 @@ export const fetchCollectionsPendingAsync = () => {
     const collectionRef = firestore.collection('collections');
     dispatch(fetchCollectionsPending());
 
-    collectionRef.get()
+    collectionRef
+      .get()
       .then(snapshot => {
         const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-        dispatch(fetchCollectionsSuccess(collectionsMap))
+        dispatch(fetchCollectionsSuccess(collectionsMap));
       })
-      .catch(error => dispatch(fetchCollectionsFailed(error.message)))
+      .catch(error => dispatch(fetchCollectionsFailed(error.message)));
   }
 }
