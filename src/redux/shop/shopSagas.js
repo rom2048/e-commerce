@@ -6,8 +6,6 @@ import {
 } from './shopActions';
 import { 
   FETCH_COLLECTIONS_PENDING,
-  FETCH_COLLECTIONS_SUCCESS,
-  FETCH_COLLECTIONS_FAILED
 } from '../constants';
 
 export function* fetchCollectionsAsync(){
