@@ -1,13 +1,19 @@
-import { SET_CURRENT_USER } from '../constants.js';
+import {
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILED,
+} from '../constants.js';
 
 const initialStateUser = {
-  currentUser: null
+  currentUser: null,
+  error: null
 }
 
 const userReducer = (state=initialStateUser, action={}) => {
   switch(action.type){
-    case SET_CURRENT_USER:
-      return Object.assign({}, state, {currentUser: action.payload});
+    case SIGN_IN_SUCCESS:
+      return Object.assign({}, state, {currentUser: action.payload, error: null});
+    case SIGN_IN_FAILED:
+      return Object.assign({}, state, {error: action.payload })
     default:
       return state;
   }

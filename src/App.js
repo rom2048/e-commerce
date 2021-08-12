@@ -5,9 +5,7 @@ import Header from './components/Header/Header';
 import SignInAndSignUpPage from './pages/SignInAndSignUp/SignInAndSignUp';
 import CheckoutPage from './pages/checkout/Checkout';
 import { selectCollectionsForPreview } from './redux/shop/shopSelectors';
-import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/userActions';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/userSelectors';
@@ -18,32 +16,25 @@ const mapStateToProps = createStructuredSelector({
   collectionsArray: selectCollectionsForPreview
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCurrentUser: user => dispatch(setCurrentUser(user))
-  }
-}
-
 class App extends React.Component {
   unSubscribeFromAuth = null;
 
   componentDidMount(){
-    const { setCurrentUser, collectionsArray } = this.props;
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          })
-        })
-      } else {
-        setCurrentUser(userAuth);
-        addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items}) ));
-      }
-    })
+    //     userRef.onSnapshot(snapShot => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data()
+    //       })
+    //     })
+    //   } else {
+    //     setCurrentUser(userAuth);
+    //     addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items}) ));
+    //   }
+    // })
   }
 
   componentWillUnmount() {
@@ -67,4 +58,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
