@@ -3,9 +3,15 @@ import { signInSuccess, signInFailed } from './userActions';
 import {
   GOOGLE_SIGN_IN_START,
   EMAIL_SIGN_IN_START,
+  CHECK_USER_SESSION
 } from '../constants';
 
-import { auth, googleProvider, createUserProfileDocument } from '../../firebase/firebase';
+import {
+  auth,
+  googleProvider,
+  createUserProfileDocument,
+  getCurrentUser
+} from '../../firebase/firebase';
 
 export function* getSnapshotFromUserAuth(userAuth){
   try{
@@ -43,6 +49,24 @@ export function* onEmailSignInStart() {
   yield takeLatest(EMAIL_SIGN_IN_START, signInWithEmail)
 }
 
+export function* isUserAuthenticated(){
+  try{
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    yield getSnapshotFromUserAuth(userAuth);
+  } catch (error) {
+    yield put(signInFailed(error));
+  }
+}
+
+export function* onCheckUserSession() {
+  yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated)
+}
+
 export function* userSagas() {
-  yield all([call(onGoogleSignInStart), call(onEmailSignInStart)]);
+  yield all([
+    call(onGoogleSignInStart),
+    call(onEmailSignInStart),
+    call(isUserAuthenticated)
+  ]);
 }
