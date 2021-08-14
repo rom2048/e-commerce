@@ -14,7 +14,8 @@ import {
   EMAIL_SIGN_IN_START,
   CHECK_USER_SESSION,
   SIGN_OUT_START,
-  SIGN_UP_START
+  SIGN_UP_START,
+  SIGN_UP_SUCCESS
 } from '../constants';
 
 import {
@@ -27,9 +28,9 @@ import {
 export function* signUp({payload: { email, password, displayName }}) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    yield put(signInSuccess({ user, additionalData: { displayName } }));
+    yield put(signUpSuccess({ user, additionalData: { displayName } }));
   } catch (error) {
-    yield put(singUpFailed());
+    yield put(signUpFailed(error));
   }
 }
 
@@ -101,11 +102,11 @@ export function* onSignOutStart() {
 }
 
 export function* onSignUpStart() {
-  yield takeLatest(SIGN_OUT_START, signup);
+  yield takeLatest(SIGN_UP_START, signUp);
 }
 
 export function* onSignUpSuccess() {
-  yield takeLatest(SIGN_UP_SUCCESS, signInAfretSignUp);
+  yield takeLatest(SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
 export function* userSagas() {

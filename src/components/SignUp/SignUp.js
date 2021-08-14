@@ -30,7 +30,7 @@ class SignUp extends React.Component {
       return;
     }
 
-    signUpStart({ email, password, displayName });
+    signUpStart({ displayName, email, password });
   }
 
   handleChange = (event) => {

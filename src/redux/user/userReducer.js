@@ -3,6 +3,7 @@ import {
   SIGN_IN_FAILED,
   SIGN_OUT_SUCCESS,
   SIGN_OUT_FAILED,
+  SIGN_UP_FAILED
 } from '../constants.js';
 
 const initialStateUser = {
