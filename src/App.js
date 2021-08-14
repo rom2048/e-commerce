@@ -18,7 +18,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  checkUserSession: () => dispatch(checkUserSession());
+  checkUserSession: () => dispatch(checkUserSession())
 })
 
 class App extends React.Component {
