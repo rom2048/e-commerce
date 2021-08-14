@@ -24,6 +24,7 @@ export function* fetchCollectionsPending() {
   yield takeLatest(FETCH_COLLECTIONS_PENDING, fetchCollectionsAsync );
 }
 
+
 export function* shopSagas() {
   yield all([call(fetchCollectionsPending)])
 }

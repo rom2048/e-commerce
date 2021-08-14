@@ -1,10 +1,20 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { signInSuccess, signInFailed, signOutSuccess, signOutFailed } from './userActions';
+
+import { 
+  signInSuccess,
+  signInFailed,
+  signOutSuccess,
+  signOutFailed,
+  signUpSuccess,
+  signUpFailed
+} from './userActions';
+
 import {
   GOOGLE_SIGN_IN_START,
   EMAIL_SIGN_IN_START,
   CHECK_USER_SESSION,
-  SIGN_OUT_START
+  SIGN_OUT_START,
+  SIGN_UP_START
 } from '../constants';
 
 import {
@@ -13,6 +23,19 @@ import {
   createUserProfileDocument,
   getCurrentUser
 } from '../../firebase/firebase';
+
+export function* signUp({payload: { email, password, displayName }}) {
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    yield put(signInSuccess({ user, additionalData: { displayName } }));
+  } catch (error) {
+    yield put(singUpFailed());
+  }
+}
+
+export function* signInAfterSignUp({ payload: { user, additionalData } }){
+  yield getSnapshotFromUserAuth(user, additionalData);
+}
 
 export function* signOut() {
   try {
@@ -23,9 +46,9 @@ export function* signOut() {
   }
 }
 
-export function* getSnapshotFromUserAuth(userAuth){
+export function* getSnapshotFromUserAuth(userAuth, additionalData){
   try{
-    const userRef = yield call(createUserProfileDocument, userAuth);
+    const userRef = yield call(createUserProfileDocument, userAuth, additionalData);
     const userSnapshot = yield userRef.get();
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }))
   } catch (error) {
@@ -52,11 +75,11 @@ export function* signInWithEmail({ payload: { email, password }}) {
 }
 
 export function* onGoogleSignInStart() {
-  yield takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle)
+  yield takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
 export function* onEmailSignInStart() {
-  yield takeLatest(EMAIL_SIGN_IN_START, signInWithEmail)
+  yield takeLatest(EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
 export function* isUserAuthenticated(){
@@ -70,11 +93,19 @@ export function* isUserAuthenticated(){
 }
 
 export function* onCheckUserSession() {
-  yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated)
+  yield takeLatest(CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* onSignOutStart() {
-  yield takeLatest(SIGN_OUT_START, signOut)
+  yield takeLatest(SIGN_OUT_START, signOut);
+}
+
+export function* onSignUpStart() {
+  yield takeLatest(SIGN_OUT_START, signup);
+}
+
+export function* onSignUpSuccess() {
+  yield takeLatest(SIGN_UP_SUCCESS, signInAfretSignUp);
 }
 
 export function* userSagas() {
@@ -82,6 +113,8 @@ export function* userSagas() {
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
-    call(onSignOutStart)
+    call(onSignOutStart),
+    call(onSignUpStart),
+    call(onSignUpSuccess)
   ]);
 }

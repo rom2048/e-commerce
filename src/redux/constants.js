@@ -7,6 +7,9 @@ export const CHECK_USER_SESSION = 'CHECK_USER_SESSION';
 export const SIGN_OUT_START = 'SIGN_OUT_START';
 export const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
 export const SIGN_OUT_FAILED = 'SIGN_OUT_FAILED';
+export const SIGN_UP_START = 'SIGN_UP_START';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
 // CART
 export const TOGGLE_CART_HIDDEN = 'TOGGLE_CART_HIDDEN';
 export const ADD_ITEM = 'ADD_ITEM';
