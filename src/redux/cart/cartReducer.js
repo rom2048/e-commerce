@@ -2,7 +2,8 @@ import {
   TOGGLE_CART_HIDDEN,
   ADD_ITEM,
   CLEAR_ITEM_FROM_CART,
-  REMOVE_ITEM
+  REMOVE_ITEM,
+  CLEAR_CART
 } from '../constants.js';
 import { addClothToCart, removeItemFromCart } from './cartUtils.js';
 
@@ -23,6 +24,8 @@ const cartReducer = (state=initialStateCart, action={}) => {
       )});
     case REMOVE_ITEM:
       return Object.assign({}, state, {cartItems: removeItemFromCart(state.cartItems, action.payload)});
+    case CLEAR_CART:
+      return Object.assign({}, state, {cartItems: []})
     default:
       return state;
   }
