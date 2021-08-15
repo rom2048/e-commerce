@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import FormInput from '../FormInput/FormInput';
 import CustomButton from '../CustomButton/CustomButton';
@@ -9,21 +9,19 @@ const mapDispatchToProps = dispatch => ({
   signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials))
 })
 
-class SignUp extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
-  }
+const SignUp = ({ signUpStart }) => {
+  
+  const [userCredentials, setUserCredentials] = useState({
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-  handleSubmit = async (event) => {
+  const { displayName, email, password, confirmPassword } = userCredentials;
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { signUpStart } = this.props;
-    const { displayName, email, password, confirmPassword } = this.state;
 
     if(password !== confirmPassword){
       alert('Password don\'t match');
@@ -33,56 +31,53 @@ class SignUp extends React.Component {
     signUpStart({ displayName, email, password });
   }
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    setUserCredentials({...userCredentials, [name]: value});
   }
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
-    return(
-      <div className='sign-up'>
-        <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <fieldset id="sign-up" className="ba b--transparent ph0 mh0">
-            <legend className="f4 fw6 ph0 mh0">Sign Up</legend>
-            <FormInput
-              name='displayName'
-              type='text'
-              onChange={this.handleChange}
-              value={displayName}
-              label='Display name'
-              required
-            />
-            <FormInput
-              name='email'
-              type='email'
-              handleChange={this.handleChange}
-              value={email}
-              label='Email'
-              required
-            />
-            <FormInput
-              name='password'
-              type='password'
-              handleChange={this.handleChange}
-              value={password}
-              label='Password'
-              required
-            />
-            <FormInput
-              name='confirmPassword'
-              type='password'
-              handleChange={this.handleChange}
-              value={confirmPassword}
-              label='Confirm Password'
-              required
-            />
-            <CustomButton type='submit' >Sign Up </CustomButton>
-          </fieldset>
-        </form>
-      </div>
-    );
-  }
+  return(
+    <div className='sign-up'>
+      <form className='sign-up-form' onSubmit={handleSubmit}>
+        <fieldset id="sign-up" className="ba b--transparent ph0 mh0">
+          <legend className="f4 fw6 ph0 mh0">Sign Up</legend>
+          <FormInput
+            name='displayName'
+            type='text'
+            onChange={handleChange}
+            value={displayName}
+            label='Display name'
+            required
+          />
+          <FormInput
+            name='email'
+            type='email'
+            handleChange={handleChange}
+            value={email}
+            label='Email'
+            required
+          />
+          <FormInput
+            name='password'
+            type='password'
+            handleChange={handleChange}
+            value={password}
+            label='Password'
+            required
+          />
+          <FormInput
+            name='confirmPassword'
+            type='password'
+            handleChange={handleChange}
+            value={confirmPassword}
+            label='Confirm Password'
+            required
+          />
+          <CustomButton type='submit' >Sign Up </CustomButton>
+        </fieldset>
+      </form>
+    </div>
+  );
 }
 
 export default connect(null,mapDispatchToProps)(SignUp);
