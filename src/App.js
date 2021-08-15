@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomePage from './pages/HomePage/HomePage';
 import ShopPage from './pages/Shop/Shop';
 import Header from './components/Header/Header';
@@ -21,34 +21,25 @@ const mapDispatchToProps = dispatch => ({
   checkUserSession: () => dispatch(checkUserSession())
 })
 
-class App extends React.Component {
-  unSubscribeFromAuth = null;
-
-  componentDidMount(){
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
-  componentWillUnmount() {
-    this.unSubscribeFromAuth();
+  return (
+    <div >
+      <Header />
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route exact path='/signin' render={() => currentUser 
+          ? (<Redirect to='/' />)
+          : (<SignInAndSignUpPage />)} />
+      </Switch>
+    </div>
+  );
 
-  }
-
-  render() {
-    return (
-      <div >
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/signin' render={() => this.props.currentUser 
-            ? (<Redirect to='/' />)
-            : (<SignInAndSignUpPage />)} />
-        </Switch>
-      </div>
-    );
-  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

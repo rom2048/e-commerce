@@ -9,7 +9,6 @@ import {
 } from '../constants';
 
 export function* fetchCollectionsAsync(){
-  yield console.log('=? i dont know whats happens');
   try {
     const collectionRef = firestore.collection('collections');
     const snapshot = yield collectionRef.get();
