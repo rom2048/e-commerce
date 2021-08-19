@@ -6,13 +6,15 @@ import { fetchCollectionsPending } from '../../redux/shop/shopActions';
 import CollectionsOverviewContainer from '../../components/CollectionsOverview/CollectionsOverviewContainer';
 import CollectionPageContainer from '../Collection/CollectionContainer';
 
+import { ShopPageContainer } from './ShopStyles';
+
 const ShopPage = ({ fetchCollectionsPending, match }) => {
   useEffect(() => {
     fetchCollectionsPending();
   }, [fetchCollectionsPending]);
 
   return (
-    <div className='shop-page'>
+    <ShopPageContainer>
       <Route
         exact
         path={`${match.path}`}
@@ -22,7 +24,7 @@ const ShopPage = ({ fetchCollectionsPending, match }) => {
         path={`${match.path}/:collectionId`}
         component={CollectionPageContainer}
       />
-    </div>
+    </ShopPageContainer>
   );
 }
 
